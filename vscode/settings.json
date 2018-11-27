@@ -1,0 +1,22 @@
+{
+    "editor.lineHeight": 20,
+    "editor.fontSize": 14,
+    "editor.fontFamily": "PT Mono",
+    "editor.fontWeight": "normal",
+    "editor.renderWhitespace": "none",
+    "editor.renderIndentGuides": false,
+    "explorer.confirmDragAndDrop": false,
+    "terminal.integrated.fontFamily": "Anonymous Pro for Powerline",
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.lineHeight": 0,
+    "window.zoomLevel": 1,
+    "workbench.iconTheme": "vscode-icons",
+    "vim.disableAnnoyingNeovimMessage": true,
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/local/bin/nvim",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 100,
+    "vsicons.dontShowNewVersionMessage": true,
+    "workbench.colorTheme": "Fomalhaut Dark Theme",
+    "files.trimTrailingWhitespace": true
+}

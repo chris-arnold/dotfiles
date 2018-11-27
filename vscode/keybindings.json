@@ -1,0 +1,18 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    { "key": "cmd+k cmd+right",       "command": "workbench.action.focusNextGroup" },
+    { "key": "cmd+k cmd+left",        "command": "workbench.action.focusPreviousGroup" },
+    { "key": "ctrl+`",          "command": "workbench.action.focusActiveEditorGroup",
+                                    "when": "terminalFocus" },
+    { "key": "ctrl+`",          "command": "workbench.action.terminal.focus",
+                                    "when": "!terminalFocus" },
+    { "key": "cmd+8",           "command": "workbench.action.focusActiveEditorGroup",
+                                    "when": "terminalFocus" },
+    { "key": "cmd+8",           "command": "workbench.action.terminal.focus",
+                                    "when": "!terminalFocus" },
+    { "key": "cmd+left",        "command": "-extension.vim_cmd+left"},
+    { "key": "cmd+right",       "command": "-extension.vim_cmd+right"},
+    { "key": "cmd+right",       "command": "-cursorEnd"},
+    { "key": "cmd+left",        "command": "-cursorHome"}
+
+]
