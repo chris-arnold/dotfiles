@@ -1,15 +1,15 @@
 #!/usr/bin/env zsh
 
-export DOTFILES=$HOME/.dotzsh
-export INCLUDES=$HOME/.local/share/dotfiles
+export DOTFILES=$HOME/dotfiles/zsh
+export ZSHINCLUDES=$HOME/.local/share/zsh_includes
 
 source $DOTFILES/aliases_functions
 # source $DOTFILES/theme
 
-source $INCLUDES/zsh-completions/zsh-completions.plugin.zsh
-source $INCLUDES/zsh-history-substring-search/zsh-history-substring-search.zsh
-source $INCLUDES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $INCLUDES/z/z.sh
+source $ZSHINCLUDES/zsh-completions/zsh-completions.plugin.zsh
+source $ZSHINCLUDES/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $ZSHINCLUDES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSHINCLUDES/z/z.sh
 
 
 HISTFILE=$HOME/.zsh_history
