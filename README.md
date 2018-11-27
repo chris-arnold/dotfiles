@@ -14,3 +14,6 @@ Also see [ProgrammingFonts](https://github.com/ProgrammingFonts/ProgrammingFonts
 ## Installing
 
 ## Other Notes
+
+### Vim
+Need language server binaries installed and present. TODO: Script them.
