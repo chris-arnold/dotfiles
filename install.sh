@@ -5,7 +5,8 @@
 # This assumes zsh is already installed.
 
 # Clone location for this repo - zshrc is symlinked to ~/.zshrc
-ZSH_DOTFILES=$HOME/dotfiles/zsh
+DOTFILES=$HOME/dotfiles
+ZSH_DOTFILES=$DOTFILES/zsh
 
 # Install location for Fuzzy Finder.
 FZF_DOTFILES=$HOME/.fzf
@@ -53,4 +54,7 @@ fi
 # vim-plug
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# VSCode
+cp $DOTFILES/vscode/* $HOME/Library/Application\ Support/Code/User/
 
