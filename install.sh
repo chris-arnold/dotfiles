@@ -108,3 +108,8 @@ log "NOTE: You'll need to install langservers for neovim as needed. See the conf
 # Beets
 pip3 install --user beets
 ln -s $DOTFILES/beets/config.yaml ~/.config/beets/config.yaml
+
+# Git config
+ln -s $HOME/.gitconfig $DOTFILES/.gitconfig
+ln -s $HOME/.gitignore_global $DOTFILES/.gitignore_global
+

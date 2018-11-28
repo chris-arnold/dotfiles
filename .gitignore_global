@@ -1,0 +1,15 @@
+*.pyc
+.cache/
+*.tmp
+*.swp
+*.idea
+venv/
+node_modules/
+*.egg-info
+*.dist-info
+.DS_Store
+.pytest_cache
+*/gce.ini
+.bundle/
+.vscode
+yarn-error.log

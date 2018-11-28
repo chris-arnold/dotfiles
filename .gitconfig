@@ -1,0 +1,8 @@
+[user]
+	name = Chris Arnold
+	email = chris.arnold@leadpages.net
+[push]
+	default = current
+	followTags = true
+[core]
+	excludesfile = /Users/carnold/.gitignore_global
