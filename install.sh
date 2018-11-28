@@ -44,7 +44,9 @@ else
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-brew install neovim tig httpie jq cmus ngrep nmap ncdu node yarn par wget zsh
+# Homebrew packages.
+brew install neovim tig httpie jq cmus ngrep nmap ncdu node yarn par wget zsh python python@2
+
 
 
 # Start from scratch.
@@ -93,8 +95,9 @@ fi
 
 
 # VSCode
-cp $DOTFILES/vscode/* $HOME/Library/Application\ Support/Code/User/
-
+ln -s $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+ln -s $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+ln -s $DOTFILES/vscode/vsicons.settings.json $HOME/Library/Application\ Support/Code/User/vsicons.settings.json
 
 # Neovim
 log "Installing vim-plug."
@@ -102,3 +105,6 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 log "NOTE: You'll need to install langservers for neovim as needed. See the config file."
 
+# Beets
+pip3 install --user beets
+ln -s $DOTFILES/beets/config.yaml ~/.config/beets/config.yaml
