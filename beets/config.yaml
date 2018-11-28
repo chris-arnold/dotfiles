@@ -1,0 +1,53 @@
+directory: ~/music
+library: ~/musiclibrary.blb
+
+plugins: scrub
+plugins: acousticbrainz convert duplicates embedart fetchart ftintitle info inline lastgenre mbsync missing replaygain scrub web
+ignore: .* *~ lost+found .AppleDouble ._* *~ .DS_Store
+ignore_hidden: yes
+asciify_paths: yes
+art_filename: Cover
+threaded: yes
+format_item: $artist - $album - $title
+format_album: $albumartist - $album
+sort_item: artist+ album+ disc+ track+
+sort_album: albumartist+ album+
+sort_case_insensitive: yes
+original_date: yes
+per_disc_numbering: yes
+
+# Importer Options
+# http://beets.readthedocs.io/en/stable/reference/config.html#importer-options
+import:
+  write: yes
+  move: no
+  resume: ask
+  quiet_fallback: asis
+  languages: en
+
+embedart:
+  auto: yes
+  maxwidth: 960
+
+fetchart:
+  auto: yes
+  sources: filesystem coverart itunes fanarttv amazon albumart *
+
+ftintitle:
+  auto: yes
+
+# Inline plugin
+pathfields:
+  multidisc: 1 if disctotal > 1 else 0
+album_fields:
+  disambiguation: albumdisambig.split(", ")[-1] or year
+
+lastgenre:
+  auto: yes
+
+missing:
+  count: yes
+  total: no
+
+iscrub:
+  auto: yes
