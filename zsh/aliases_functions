@@ -90,7 +90,7 @@ function gdt() { git describe --tags --always }
 
 # ===== Minikube helpers =====
 
-function koobmini() { kubectl config use-context minikube }
+function koobsetmini() { kubectl config use-context minikube }
 
 function minikube_clean_dashboard() {
     echo 'set -x; sudo rm /etc/kubernetes/addons/dashboard* ; exit' | minikube ssh 

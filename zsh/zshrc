@@ -10,7 +10,7 @@ source $ZSHINCLUDES/zsh-completions/zsh-completions.plugin.zsh
 source $ZSHINCLUDES/zsh-history-substring-search/zsh-history-substring-search.zsh
 source $ZSHINCLUDES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSHINCLUDES/z/z.sh
-
+source $ZSHINCLUDES/zsh-iterm-touchbar/zsh-iterm-touchbar.plugin.zsh
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -113,7 +113,11 @@ if [ -f "$HOME/.iterm2_shell_integration.zsh" ]; then
 fi
 
 # Fuzzy finder shell integration.
-source $HOME/.fzf.zsh
+[[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+
+# Fuzzy finder key bindings
+source "$HOME/.fzf/shell/key-bindings.zsh"
+
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
@@ -128,16 +132,6 @@ export NVM_DIR="$HOME/.nvm"
 # Python (homebrew) PATH
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH
 # export PATH="/usr/local/opt/python3/bin:$PATH"
-
-# Ruby local gem installs PATH
-# LOCALGEMS="$HOME/.gem/ruby/2.4.0/bin"
-# if [ -d "$LOCALGEMS" ]; then
-#     export PATH="${LOCALGEMS}:${PATH}"
-# else
-#     echo "Warning: expected local gem install folder not present: ${LOCALGEMS}."
-# fi
-
-export PATH="$HOME/.rbenv/shims:$PATH"
 
 # Python virtualenvwrapper
 export WORKON_HOME=$HOME/.venvs
@@ -165,3 +159,8 @@ export PATH="$PATH:$HOME/fly"
 export GOPATH="$HOME/go"
 eval "$(goenv init -)"
 
+# rbenv
+eval "$(rbenv init -)"
+export PATH="$HOME/.rbenv/shims:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"

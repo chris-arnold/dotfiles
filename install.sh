@@ -48,7 +48,6 @@ fi
 brew install neovim tig httpie jq cmus ngrep nmap ncdu node yarn par wget zsh python python@2
 
 
-
 # Start from scratch.
 log "Removing existing config directories."
 rm -rf \
@@ -70,9 +69,12 @@ $DOTFZF/install --key-bindings --completion --no-update-rc
 log "Cloning ZSH plugins."
 mkdir -p $ZSH_INCLUDES
 $GITCLONE https://github.com/zsh-users/zsh-completions.git $ZSH_INCLUDES/zsh-completions
+$GITCLONE https://github.com/zsh-users/zsh-completions.git $ZSH_INCLUDES/zsh-completions
 $GITCLONE https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_INCLUDES/zsh-history-substring-search
 $GITCLONE https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_INCLUDES/zsh-syntax-highlighting
 $GITCLONE https://github.com/rupa/z.git $ZSH_INCLUDES/z
+$GITCLONE https://github.com/iam4x/zsh-iterm-touchbar $ZSH_INCLUDES/zsh-iterm-touchbar
+
 if [ ! -f "$HOME/.z" ]; then
     touch $HOME/.z
 fi
@@ -100,9 +102,17 @@ ln -s $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/Use
 ln -s $DOTFILES/vscode/vsicons.settings.json $HOME/Library/Application\ Support/Code/User/vsicons.settings.json
 
 # Neovim
+pip3 install neovim
 log "Installing vim-plug."
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+mkdir -p $HOME/.config/nvim
+ln -s $DOTFILES/neovim/init.vim $HOME/.config/nvim/init.vim
+ln -s $DOTFILES/neovim/syntax $HOME/.config/.nvim/syntax
+pip3 install --user neovim python-language-server
+pip2 install --user neovim python-language-server
+
+
 log "NOTE: You'll need to install langservers for neovim as needed. See the config file."
 
 # Beets

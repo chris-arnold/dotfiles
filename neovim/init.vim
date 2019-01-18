@@ -6,13 +6,13 @@ let g:python3_host_prog='/usr/local/bin/python3'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'daveisadork/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Numkil/ag.nvim'
-Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-completion-manager'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/denite.nvim'
 Plug 'janko-m/vim-test'
@@ -73,7 +73,7 @@ let g:LanguageClient_serverCommands = {
     \ 'javascript': ["$HOME/Projects/langserver/javascript-typescript-langserver/lib/language-server-stdio.js"],
     \ 'Dockerfile': ['docker-langserver'],
     \ 'groovy': ['java', '-jar', "$HOME/Projects/langserver/language-servers/groovy-language-server/build/libs/groovy-language-server-0.5.0-all.jar"],
-    \ 'python': ['pyls'],
+    \ 'python': ['$HOME/Library/Python/3.7/bin/pyls'],
     \ 'lua': ['lua-lsp'],
     \ 'go': ['go-langserver'],
     \ }
