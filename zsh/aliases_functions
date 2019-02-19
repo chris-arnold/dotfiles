@@ -9,9 +9,6 @@ alias dcolp="docker-compose up fe-builder leadpages hydra agent_leadnotification
 alias k="kubectl"
 alias kcl="kubectl"
 alias kgal="kubectl get all --all-namespaces --show-labels"
-alias pipenv="$HOME/Library/Python/2.7/bin/pipenv"
-alias pipenv2="$HOME/Library/Python/2.7/bin/pipenv"
-alias pipenv3="$HOME/Library/Python/3.6/bin/pipenv"
 
 # Kubernetes Clusters
 alias kapitest="kubectl --context gke_leadpage-test_us-central1-b_api-cluster-1"
@@ -136,9 +133,9 @@ function kgpl () {
 
 function kga () { 
     if [ -z $1 ] ; then
-        kubectl get all -owide --all-namespaces
+        kubectl get all --all-namespaces
     else
-        kubectl get all -owide --all-namespaces | ag $1
+        kubectl get all --all-namespaces | ag $1
     fi
 }
 

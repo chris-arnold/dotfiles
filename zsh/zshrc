@@ -104,7 +104,7 @@ fi
 PATH="${PATH}:$HOME/go/bin"
 
 # Pip user install paths
-export PATH="$PATH:$HOME/Library/Python/3.6/bin"
+export PATH="$PATH:$HOME/Library/Python/3.7/bin"
 export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 
 # ITerm2 v3 Beta shell integration

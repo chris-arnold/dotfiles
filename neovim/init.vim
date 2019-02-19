@@ -7,27 +7,28 @@ let g:python3_host_prog='/usr/local/bin/python3'
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'w0rp/ale'
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Numkil/ag.nvim'
 " Plug 'roxma/nvim-completion-manager'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/denite.nvim'
-Plug 'janko-m/vim-test'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/denite.nvim'
+" Plug 'janko-m/vim-test'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-fugitive'
-Plug 'Shougo/echodoc.vim'
-Plug 'mhinz/vim-grepper'
+" Plug 'Shougo/echodoc.vim'
+" Plug 'mhinz/vim-grepper'
 Plug 'kannokanno/previm'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'mustache/vim-mustache-handlebars'
-" Plug 'pangloss/vim-javascript'
+" Plug 'mustache/vim-mustache-handlebars'
+Plug 'pangloss/vim-javascript'
 Plug 'maciakl/vim-neatstatus'
 Plug 'chr4/nginx.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'liuchengxu/vim-which-key'
+" Plug 'liuchengxu/vim-which-key'
+
+" Plug 'w0rp/ale'
 
 call plug#end()
 
@@ -87,6 +88,9 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <leader>r :NERDTreeToggle<CR>
 map <leader>' :NERDTreeToggle<CR>
+
+" FZF Git
+nnoremap <leader>gc :Commit<CR>
 
 " Indent Guides
 let g:indent_guides_auto_colors = 0
