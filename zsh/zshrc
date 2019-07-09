@@ -1,4 +1,7 @@
 #!/usr/bin/env zsh
+function has_cmd() {
+  command -v "$1" >/dev/null 2>&1
+}
 
 export DOTFILES=$HOME/dotfiles/zsh
 export ZSHINCLUDES=$HOME/.local/share/zsh_includes
@@ -133,13 +136,13 @@ export NVM_DIR="$HOME/.nvm"
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH
 # export PATH="/usr/local/opt/python3/bin:$PATH"
 
-# Python virtualenvwrapper
-export WORKON_HOME=$HOME/.venvs
-export PROJECT_HOME=$HOME/Projects
-export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_PYTHON=$(which python2)
-export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/Library/Python/2.7/bin/virtualenv
-source $HOME/Library/Python/2.7/bin/virtualenvwrapper_lazy.sh
+# Python virtualenvwrapper - REPLACED WITH PYENV
+# export WORKON_HOME=$HOME/.venvs
+# export PROJECT_HOME=$HOME/Projects
+# export VIRTUALENVWRAPPER_SCRIPT=$HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
+# export VIRTUALENVWRAPPER_PYTHON=$(which python2)
+# export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/Library/Python/2.7/bin/virtualenv
+# source $HOME/Library/Python/2.7/bin/virtualenvwrapper_lazy.sh
 
 # Perl
 PATH="/Users/carnold/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -148,19 +151,34 @@ PERL_LOCAL_LIB_ROOT="/Users/carnold/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LI
 PERL_MB_OPT="--install_base \"/Users/carnold/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/carnold/perl5"; export PERL_MM_OPT;
 
+
 # Nginx/Openresty
 export TEST_NGINX_BINARY=openresty
+
 
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$PATH:$HOME/fly"
 
+
 # goenv
-export GOPATH="$HOME/go"
-eval "$(goenv init -)"
+if has_cmd "goenv"; then
+    export GOPATH="$HOME/go"
+    eval "$(goenv init -)"
+fi
+
 
 # rbenv
-eval "$(rbenv init -)"
-export PATH="$HOME/.rbenv/shims:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+if has_cmd "rbenv"; then
+    eval "$(rbenv init -)"
+    export PATH="$HOME/.rbenv/shims:$PATH"
+fi
+
+
+# NVM
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# SDKMAN - "must" be at end of this file.
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -36,7 +36,7 @@ GITCLONE="git clone --depth=1"
 VSCODE_SETTINGS="$HOME/Library/Application\ Support/Code/User/"
 
 
-# Homebrew
+# Homebrew and packages
 if has_cmd "brew"; then
     log "Homebrew already installed. Skipping..."
 else
@@ -44,8 +44,22 @@ else
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Homebrew packages.
-brew install neovim tig httpie jq cmus ngrep nmap ncdu node yarn par wget zsh python python@2
+brew install \
+    httpie \
+    jq \
+    kubernetes-cli \
+    ncdu \
+    ngrep \
+    nmap \
+    node \
+    par \
+    python \
+    python@2 \
+    the_silver_searcher \
+    tig \
+    wget \
+    yarn \
+    zsh
 
 
 # Start from scratch.
@@ -62,7 +76,7 @@ ln -s $ZSH_DOTFILES/zshrc $HOME/.zshrc
 # Install FZF with key bindings and completion.
 log "Installing FZF and bindings."
 $GITCLONE https://github.com/junegunn/fzf.git $FZF_DOTFILES
-$DOTFZF/install --key-bindings --completion --no-update-rc
+$FZF_DOTFILES/install --key-bindings --completion --no-update-rc
 
 
 # Clone any ZSH plugins.
@@ -89,19 +103,33 @@ if [ -d "$HOME/.nvm" ]; then
     $GITCLONE https://github.com/creationix/nvm.git $HOME/.nvm
 fi
 
+# goenv
+# rbenv
 
-# GVM - Disabled for now.
-# if ! command -v gvm; then
-#   zsh < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
-# fi
+
+# sdkman
+if ! has_cmd "sdk"; then
+    echo "sdk command not found, installing SDKMAN"
+    curl -s "https://get.sdkman.io" | bash
+    source "$HOME/.sdkman/bin/sdkman-init.sh"
+fi
+
+
+# java
+sdkman install java 12.0.1.j9-adpt
 
 
 # VSCode
-ln -s $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
-ln -s $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
-ln -s $DOTFILES/vscode/vsicons.settings.json $HOME/Library/Application\ Support/Code/User/vsicons.settings.json
+if [ -d "$HOME/Library/Application\ Support/Code" ]; then
+    ln -s $DOTFILES/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/keybindings.json
+    ln -s $DOTFILES/vscode/settings.json $HOME/Library/Application\ Support/Code/User/settings.json
+    ln -s $DOTFILES/vscode/vsicons.settings.json $HOME/Library/Application\ Support/Code/User/vsicons.settings.json
+fi
+
 
 # Neovim
+brew install neovim
+ln -s $(which nvim) /usr/local/bin/vim
 pip3 install neovim
 log "Installing vim-plug."
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -112,14 +140,18 @@ ln -s $DOTFILES/neovim/syntax $HOME/.config/.nvim/syntax
 pip3 install --user neovim python-language-server
 pip2 install --user neovim python-language-server
 
-
 log "NOTE: You'll need to install langservers for neovim as needed. See the config file."
 
-# Beets
-pip3 install --user beets
-ln -s $DOTFILES/beets/config.yaml ~/.config/beets/config.yaml
+# Glances
+pip3 install glances
+
+# Beets - not used for now
+# pip3 install --user beets
+# ln -s $DOTFILES/beets/config.yaml ~/.config/beets/config.yaml
 
 # Git config
 ln -s $HOME/.gitconfig $DOTFILES/.gitconfig
 ln -s $HOME/.gitignore_global $DOTFILES/.gitignore_global
+
+
 
