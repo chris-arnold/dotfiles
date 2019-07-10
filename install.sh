@@ -102,6 +102,7 @@ log "Installing NVM."
 if [ -d "$HOME/.nvm" ]; then
     $GITCLONE https://github.com/creationix/nvm.git $HOME/.nvm
 fi
+nvm use default
 
 # goenv
 # rbenv
@@ -138,12 +139,32 @@ mkdir -p $HOME/.config/nvim
 ln -s $DOTFILES/neovim/init.vim $HOME/.config/nvim/init.vim
 ln -s $DOTFILES/neovim/syntax $HOME/.config/.nvim/syntax
 pip3 install --user neovim python-language-server
-pip2 install --user neovim python-language-server
+pip2 install --user neovim
 
-log "NOTE: You'll need to install langservers for neovim as needed. See the config file."
 
-# Glances
-pip3 install glances
+# Neovim language servers
+langserver_dir = "${HOME}/Projects/langserver"
+mkdir -p langserver_dir
+cd "$langserver_dir"
+
+# Javascript
+git clone https://github.com/sourcegraph/javascript-typescript-langserver
+cd javascript-typescript-langserver
+npm install
+npm run build
+
+# Groovy
+cd "$langserver_dir"
+git clone https://github.com/prominic/groovy-language-server
+cd groovy-language-server
+./gradlew build
+
+log "NOTE: You'll need to install langservers besides python and js for neovim as needed. See the config file."
+
+# Other Python tools
+pip3 install --user \
+    bumpversion \
+    glances
 
 # Beets - not used for now
 # pip3 install --user beets
@@ -152,6 +173,4 @@ pip3 install glances
 # Git config
 ln -s $HOME/.gitconfig $DOTFILES/.gitconfig
 ln -s $HOME/.gitignore_global $DOTFILES/.gitignore_global
-
-
 

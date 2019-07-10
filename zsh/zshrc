@@ -144,6 +144,11 @@ export NVM_DIR="$HOME/.nvm"
 # export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/Library/Python/2.7/bin/virtualenv
 # source $HOME/Library/Python/2.7/bin/virtualenvwrapper_lazy.sh
 
+# Pyenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+PATH="${HOME}/.pyenv/shims:${PATH}"
+
 # Perl
 PATH="/Users/carnold/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/carnold/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
