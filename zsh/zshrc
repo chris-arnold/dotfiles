@@ -3,19 +3,19 @@ function has_cmd() {
   command -v "$1" >/dev/null 2>&1
 }
 
-export DOTFILES=$HOME/dotfiles/zsh
-export ZSHINCLUDES=$HOME/.local/share/zsh_includes
+export DOTFILES="${HOME}/dotfiles/zsh"
+export ZSHINCLUDES="${HOME}/.local/share/zsh_includes"
 
-source $DOTFILES/aliases_functions
+source "${DOTFILES}/aliases_functions"
 # source $DOTFILES/theme
 
-source $ZSHINCLUDES/zsh-completions/zsh-completions.plugin.zsh
-source $ZSHINCLUDES/zsh-history-substring-search/zsh-history-substring-search.zsh
-source $ZSHINCLUDES/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $ZSHINCLUDES/z/z.sh
-source $ZSHINCLUDES/zsh-iterm-touchbar/zsh-iterm-touchbar.plugin.zsh
+source "${ZSHINCLUDES}/zsh-completions/zsh-completions.plugin.zsh"
+source "${ZSHINCLUDES}/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "${ZSHINCLUDES}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "${ZSHINCLUDES}/z/z.sh"
+source "${ZSHINCLUDES}/zsh-iterm-touchbar/zsh-iterm-touchbar.plugin.zsh"
 
-HISTFILE=$HOME/.zsh_history
+HISTFILE="${HOME}/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -83,7 +83,7 @@ function kubectl_info() {
 
 function virtualenv_info() {
     # Prints current virtualenv if one is active.
-    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+    [ $VIRTUAL_ENV ] && echo '('`basename ${VIRTUAL_ENV}`') '
 }
 
 function git_prompt() {
@@ -100,26 +100,27 @@ PS1='%F{magenta}$(kubectl_info)%F{reset}%F{green}$(virtualenv_info)%F{reset}$(gi
 
 # Ensure /usr/local/bin is on the path (PyCharm bug)
 if [[ ! $PATH =~ ".*/usr/local/bin.*" ]]; then
-    export PATH="$PATH:/usr/local/bin"
+    export PATH="${PATH}:/usr/local/bin"
 fi
 
 # Add golang's bins to path
 PATH="${PATH}:$HOME/go/bin"
 
 # Pip user install paths
-export PATH="$PATH:$HOME/Library/Python/3.7/bin"
-export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+export PATH="${PATH}:${HOME}/Library/Python/3.7/bin"
+export PATH="${PATH}:${HOME}/Library/Python/2.7/bin"
 
 # ITerm2 v3 Beta shell integration
-if [ -f "$HOME/.iterm2_shell_integration.zsh" ]; then
-    source $HOME/.iterm2_shell_integration.zsh
+if [ -f "${HOME}/.iterm2_shell_integration.zsh" ]; then
+    source "${HOME}/.iterm2_shell_integration.zsh"
 fi
 
 # Fuzzy finder shell integration.
-[[ $- == *i* ]] && source "$HOME/.fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "${HOME}/.fzf/shell/completion.zsh" 2> /dev/null
 
 # Fuzzy finder key bindings
-source "$HOME/.fzf/shell/key-bindings.zsh"
+source "${HOME}/.fzf/shell/key-bindings.zsh"
+[ -f "${HOME}/.fzf.zsh" ] && source "${HOME}/.fzf.zsh"
 
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
@@ -130,7 +131,7 @@ export COPYFILE_DISABLE=true
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" --no-use
+[ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh" --no-use
 
 # Python (homebrew) PATH
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH
@@ -162,13 +163,13 @@ export TEST_NGINX_BINARY=openresty
 
 
 # Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$PATH:$HOME/fly"
+export PATH="${HOME}/.cargo/bin:${PATH}"
+export PATH="${PATH}:${HOME}/fly"
 
 
 # goenv
 if has_cmd "goenv"; then
-    export GOPATH="$HOME/go"
+    export GOPATH="${HOME}/go"
     eval "$(goenv init -)"
 fi
 
@@ -176,14 +177,11 @@ fi
 # rbenv
 if has_cmd "rbenv"; then
     eval "$(rbenv init -)"
-    export PATH="$HOME/.rbenv/shims:$PATH"
+    export PATH="${HOME}/.rbenv/shims:${PATH}"
 fi
 
 
-# NVM
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
 # SDKMAN - "must" be at end of this file.
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="${HOME}/.sdkman"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
