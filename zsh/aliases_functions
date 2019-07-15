@@ -45,6 +45,10 @@ alias gss='git status -s'
 alias gst='git status'
 alias gpomt='git push origin master --tags'
 
+alias lptoken_dev="cat ${HOME}/.lptoken_dev"
+alias lptoken_test="cat ${HOME}/.lptoken_test"
+alias lptoken_prod="cat ${HOME}/.lptoken_prod"
+
 
 # ===== Functions =====
 

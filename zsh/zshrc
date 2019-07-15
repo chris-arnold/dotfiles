@@ -128,7 +128,6 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.
 # Disable creating the '._blah' metadata files when calling tar.
 export COPYFILE_DISABLE=true
 
-
 # NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh" --no-use
@@ -157,15 +156,12 @@ PERL_LOCAL_LIB_ROOT="/Users/carnold/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LI
 PERL_MB_OPT="--install_base \"/Users/carnold/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/carnold/perl5"; export PERL_MM_OPT;
 
-
 # Nginx/Openresty
 export TEST_NGINX_BINARY=openresty
-
 
 # Rust
 export PATH="${HOME}/.cargo/bin:${PATH}"
 export PATH="${PATH}:${HOME}/fly"
-
 
 # goenv
 if has_cmd "goenv"; then
@@ -173,15 +169,12 @@ if has_cmd "goenv"; then
     eval "$(goenv init -)"
 fi
 
-
 # rbenv
 if has_cmd "rbenv"; then
     eval "$(rbenv init -)"
     export PATH="${HOME}/.rbenv/shims:${PATH}"
 fi
 
-
 # SDKMAN - "must" be at end of this file.
 export SDKMAN_DIR="${HOME}/.sdkman"
 [[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
-
