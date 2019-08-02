@@ -49,6 +49,9 @@ alias lptoken_dev="cat ${HOME}/.lptoken_dev"
 alias lptoken_test="cat ${HOME}/.lptoken_test"
 alias lptoken_prod="cat ${HOME}/.lptoken_prod"
 
+alias lptoken_admin_dev="cat ${HOME}/.lptoken_admin_dev"
+alias lptoken_admin_test="cat ${HOME}/.lptoken_admin_test"
+alias lptoken_admin_prod="cat ${HOME}/.lptoken_admin_prod"
 
 # ===== Functions =====
 

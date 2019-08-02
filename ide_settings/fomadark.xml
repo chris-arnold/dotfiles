@@ -1,0 +1,25 @@
+<mtTheme>
+  <id>fomadark</id>
+  <editorColorsScheme>foma-dark</editorColorsScheme>
+  <dark>true</dark>
+  <name>Fomadark</name>
+  <colors>
+    <color id="background" value="13000cff"/>
+    <color id="foreground" value="bb9065ff"/>
+    <color id="text" value="6d0028ff"/>
+    <color id="highlight" value="13000cff"/>
+    <color id="selectionBackground" value="28000fff"/>
+    <color id="selectionForeground" value="bb4100ff"/>
+    <color id="button" value="3b1234ff"/>
+    <color id="secondaryBackground" value="13000cff"/>
+    <color id="disabled" value="3f3b3bff"/>
+    <color id="contrast" value="160504ff"/>
+    <color id="tableSelected" value="28000fff"/>
+    <color id="secondBorder" value="000009ff"/>
+    <color id="treeSelection" value="5a3250ff"/>
+    <color id="notifications" value="30071aff"/>
+    <color id="accent" value="009688ff"/>
+    <color id="excluded" value="2e3c43ff"/>
+  </colors>
+  <themeId>fomadark</themeId>
+</mtTheme>
