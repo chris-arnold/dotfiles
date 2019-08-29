@@ -273,3 +273,31 @@ function ijidea() {
     fi
 }
 
+function sdkenv() {
+    unset POSSIBLE_CANDIDATES
+    $(IFS=" ")
+    for f in $(ls .*-version); do
+        POSSIBLE_CANDIDATES+=(${${f##.}%-*})
+    done
+
+    if [[ ! "${POSSIBLE_CANDIDATES[@]}" ]]; then
+        echo "No candidate(s) provided."
+    fi
+
+    for c in "${POSSIBLE_CANDIDATES[@]}"; do
+        echo "checking candidate ${c}"
+        if [[ "$SDKMAN_CANDIDATES_CSV" != *"${c}"* ]]; then
+            echo "Candidate "${c}" not found in SDKMAN_CANDIDATES_CSV environment variable."
+        else
+            VERSION=$(cat ".${c}-version")
+            if [[ -z "$VERSION" ]]; then
+                echo "Stop! This is not a valid $CANDIDATE project!"
+            else
+                echo "Switching to $CANDIDATE $VERSION ..."
+            fi
+
+            __sdk_use "$c" "$VERSION"
+        fi
+    done
+}
+
