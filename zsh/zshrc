@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
-function has_cmd() {
-  command -v "$1" >/dev/null 2>&1
-}
+# set -x
 
 export DOTFILES="${HOME}/dotfiles/zsh"
 export ZSHINCLUDES="${HOME}/.local/share/zsh_includes"
@@ -13,7 +11,7 @@ source "${ZSHINCLUDES}/zsh-completions/zsh-completions.plugin.zsh"
 source "${ZSHINCLUDES}/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "${ZSHINCLUDES}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "${ZSHINCLUDES}/z/z.sh"
-source "${ZSHINCLUDES}/zsh-iterm-touchbar/zsh-iterm-touchbar.plugin.zsh"
+# source "${ZSHINCLUDES}/zsh-iterm-touchbar/zsh-iterm-touchbar.plugin.zsh"
 
 HISTFILE="${HOME}/.zsh_history"
 HISTSIZE=10000
@@ -23,8 +21,10 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 
+autoload -U add-zsh-hook
 autoload -U compinit && compinit
 zmodload -i zsh/complist
+# zmodload zsh/zprof
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 unsetopt menu_complete
@@ -60,7 +60,7 @@ bindkey '^[[3~' delete-char
 bindkey '^[3;5~' delete-char
 
 # History-by-command (default in oh-my-zsh)
-bindkey '^[[A' up-line-or-search                                                
+bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
 export EDITOR='vim'
@@ -96,7 +96,8 @@ function git_prompt() {
     fi
 }
 
-PS1='%F{magenta}$(kubectl_info)%F{reset}%F{green}$(virtualenv_info)%F{reset}$(git_prompt)%F{red}[%2~]%F{reset}%F{yellow}%(?..[%?] )%F{reset}> '
+PS1='%F{cyan}$(kubectl_info)%F{reset}%F{green}$(virtualenv_info)%F{reset}$(git_prompt)%F{red}[%2~]%F{reset}%F{yellow}%(?..[%?] )%F{reset}> '
+# PS1='%F{cyan}%F{reset}%F{green}$(virtualenv_info)%F{reset}$(git_prompt)%F{red}[%2~]%F{reset}%F{yellow}%(?..[%?] )%F{reset}> '
 
 # Ensure /usr/local/bin is on the path (PyCharm bug)
 if [[ ! $PATH =~ ".*/usr/local/bin.*" ]]; then
@@ -122,15 +123,23 @@ fi
 source "${HOME}/.fzf/shell/key-bindings.zsh"
 [ -f "${HOME}/.fzf.zsh" ] && source "${HOME}/.fzf.zsh"
 
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+# Google cloud SDK
+#source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+#source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 
 # Disable creating the '._blah' metadata files when calling tar.
 export COPYFILE_DISABLE=true
 
-# NVM
+# NVM source and autoload
 export NVM_DIR="$HOME/.nvm"
 [ -s "${NVM_DIR}/nvm.sh" ] && . "${NVM_DIR}/nvm.sh" --no-use
+
+nvm_use_nvmrc() {
+  if [ -f "./.nvmrc" ]; then
+      nvm use
+  fi
+}
+add-zsh-hook chpwd nvm_use_nvmrc
 
 # Python (homebrew) PATH
 # export PATH="/usr/local/opt/python/libexec/bin:$PATH
@@ -145,9 +154,11 @@ export NVM_DIR="$HOME/.nvm"
 # source $HOME/Library/Python/2.7/bin/virtualenvwrapper_lazy.sh
 
 # Pyenv
-eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
-PATH="${HOME}/.pyenv/shims:${PATH}"
+eval "$(pyenv init -)"
 
 # Perl
 PATH="/Users/carnold/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -157,24 +168,33 @@ PERL_MB_OPT="--install_base \"/Users/carnold/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/carnold/perl5"; export PERL_MM_OPT;
 
 # Nginx/Openresty
-export TEST_NGINX_BINARY=openresty
+#export TEST_NGINX_BINARY=openresty
 
 # Rust
 export PATH="${HOME}/.cargo/bin:${PATH}"
 export PATH="${PATH}:${HOME}/fly"
 
-# goenv
-if has_cmd "goenv"; then
-    export GOPATH="${HOME}/go"
-    eval "$(goenv init -)"
-fi
+# golang
+export GOPATH="${HOME}/go"
+export PATH="${PATH}:${GOPATH}/bin"
+export GOPRIVATE=gitlab.sezzle.com
 
-# rbenv
-if has_cmd "rbenv"; then
-    eval "$(rbenv init -)"
-    export PATH="${HOME}/.rbenv/shims:${PATH}"
-fi
+# mysql
+# export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
+
+export DOCKER_BUILDKIT=1
 
 # SDKMAN - "must" be at end of this file.
-export SDKMAN_DIR="${HOME}/.sdkman"
-[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+#export SDKMAN_DIR="${HOME}/.sdkman"
+#[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && source "${HOME}/.sdkman/bin/sdkman-init.sh"
+
+#gvm
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# pnpm
+export PNPM_HOME="/Users/carnold/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# pnpm end
+
+# zprof

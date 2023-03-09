@@ -1,8 +1,17 @@
+[url "ssh://git@gitlab.sezzle.com:10022"]
+	insteadOf = https://gitlab.sezzle.com
+
 [user]
 	name = Chris Arnold
-	email = chris.arnold@leadpages.net
+	email = chris.arnold@sezzle.com
 [push]
 	default = current
 	followTags = true
 [core]
 	excludesfile = /Users/carnold/.gitignore_global
+[init]
+	defaultBranch = production
+[fetch]
+	prune = true
+[diff]
+	colorMoved = zebra

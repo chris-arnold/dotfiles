@@ -13,3 +13,6 @@ node_modules/
 .bundle/
 .vscode
 yarn-error.log
+.python-version
+curltest.sh
+cpaignore

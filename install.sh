@@ -47,7 +47,7 @@ fi
 brew install \
     httpie \
     jq \
-    kubernetes-cli \
+    #kubernetes-cli \
     ncdu \
     ngrep \
     nmap \
@@ -171,6 +171,6 @@ pip3 install --user \
 # ln -s $DOTFILES/beets/config.yaml ~/.config/beets/config.yaml
 
 # Git config
-ln -s $HOME/.gitconfig $DOTFILES/.gitconfig
-ln -s $HOME/.gitignore_global $DOTFILES/.gitignore_global
+ln -s $DOTFILES/.gitconfig $HOME/.gitconfig
+ln -s $DOTFILES/.gitignore_global $HOME/.gitignore_global
 
