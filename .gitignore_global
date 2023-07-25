@@ -3,6 +3,7 @@
 *.tmp
 *.swp
 *.idea
+.idea/
 venv/
 node_modules/
 *.egg-info
@@ -16,3 +17,4 @@ yarn-error.log
 .python-version
 curltest.sh
 cpaignore
+.netrc

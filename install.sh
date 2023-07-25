@@ -87,7 +87,6 @@ $GITCLONE https://github.com/zsh-users/zsh-completions.git $ZSH_INCLUDES/zsh-com
 $GITCLONE https://github.com/zsh-users/zsh-history-substring-search.git $ZSH_INCLUDES/zsh-history-substring-search
 $GITCLONE https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_INCLUDES/zsh-syntax-highlighting
 $GITCLONE https://github.com/rupa/z.git $ZSH_INCLUDES/z
-$GITCLONE https://github.com/iam4x/zsh-iterm-touchbar $ZSH_INCLUDES/zsh-iterm-touchbar
 
 if [ ! -f "$HOME/.z" ]; then
     touch $HOME/.z
@@ -104,9 +103,7 @@ if [ -d "$HOME/.nvm" ]; then
 fi
 nvm use default
 
-# goenv
-# rbenv
-
+# rbenv - removed because I dont do ruby anymore
 
 # sdkman
 if ! has_cmd "sdk"; then
@@ -128,7 +125,7 @@ if [ -d "$HOME/Library/Application\ Support/Code" ]; then
 fi
 
 
-# Neovim
+# Neovim TODO update with nvchad and lua configuration.
 brew install neovim
 ln -s $(which nvim) /usr/local/bin/vim
 pip3 install neovim
@@ -139,7 +136,9 @@ mkdir -p $HOME/.config/nvim
 ln -s $DOTFILES/neovim/init.vim $HOME/.config/nvim/init.vim
 ln -s $DOTFILES/neovim/syntax $HOME/.config/.nvim/syntax
 pip3 install --user neovim python-language-server
-pip2 install --user neovim
+
+# Should no longer need python2 langserver support
+# pip2 install --user neovim
 
 
 # Neovim language servers
@@ -153,18 +152,17 @@ cd javascript-typescript-langserver
 npm install
 npm run build
 
-# Groovy
-cd "$langserver_dir"
-git clone https://github.com/prominic/groovy-language-server
-cd groovy-language-server
-./gradlew build
+# Groovy - none lately
+# cd "$langserver_dir"
+# git clone https://github.com/prominic/groovy-language-server
+# cd groovy-language-server
+# ./gradlew build
 
 log "NOTE: You'll need to install langservers besides python and js for neovim as needed. See the config file."
 
 # Other Python tools
-pip3 install --user \
-    bumpversion \
-    glances
+# pip3 install --user \
+#     glances
 
 # Beets - not used for now
 # pip3 install --user beets
