@@ -105,16 +105,16 @@ nvm use default
 
 # rbenv - removed because I dont do ruby anymore
 
-# sdkman
-if ! has_cmd "sdk"; then
-    echo "sdk command not found, installing SDKMAN"
-    curl -s "https://get.sdkman.io" | bash
-    source "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
+# sdkman - done w/ until I have to do JVM junk again
+# if ! has_cmd "sdk"; then
+#     echo "sdk command not found, installing SDKMAN"
+#     curl -s "https://get.sdkman.io" | bash
+#     source "$HOME/.sdkman/bin/sdkman-init.sh"
+# fi
 
 
 # java
-sdkman install java 12.0.1.j9-adpt
+# sdkman install java 12.0.1.j9-adpt
 
 
 # VSCode
