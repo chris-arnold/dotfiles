@@ -265,6 +265,19 @@ function aws_mfa {
   export AWS_SESSION_TOKEN=$(echo "$result" | jq -r '.Credentials.SessionToken')
 }
 
+function test_aws() {
+    local role_arn="arn:aws:iam::603884908598:role/OrganizationAccountAccessRole"
+    temporary_credentials="$(aws \
+            sts assume-role \
+            --role-arn="${role_arn}" \
+            --role-session-name="kops-access"
+        )"
+    unset AWS_PROFILE
+    export "AWS_ACCESS_KEY_ID=$(echo "${temporary_credentials}" | jq -re '.Credentials.AccessKeyId')"
+    export "AWS_SECRET_ACCESS_KEY=$(echo "${temporary_credentials}" | jq -re '.Credentials.SecretAccessKey')"
+    export "AWS_SESSION_TOKEN=$(echo "${temporary_credentials}" | jq -re '.Credentials.SessionToken')"
+}
+
 function login_data_lake {
     if [ -z "$AWS_SESSION_TOKEN" ]; then
        aws_mfa;
@@ -278,4 +291,11 @@ function login_data_lake {
 
     echo 'You can connect via if on the VPN: `pgcli -h data-lake.sezzle.internal -p 5439 -U "$PGUSER" dev`'
     echo 'You can view your temporary password via `echo $PGPASSWORD`'
+}
+
+function kops_test_exports {
+   export KOPS="./kops-wrapper"
+   export CLUSTER=k8s.infra-sandbox.szzldev.com
+   export KOPS_ROLE_ARN=arn:aws:iam::603884908598:role/OrganizationAccountAccessRole
+   export KOPS_STATE_STORE=s3://infra-sandbox-szzldev-kops-state-store
 }

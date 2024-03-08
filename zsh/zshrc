@@ -69,6 +69,7 @@ export LSCOLORS=Gxfxcxdxbxegedabagacad
 
 # Prompt
 
+
 # Tabs in terminal titled with bottom-level PWD
 precmd() {
   # sets the tab title to current dir
@@ -195,6 +196,4 @@ export DOCKER_BUILDKIT=1
 export PNPM_HOME="/Users/carnold/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
-# pnpm end
-
-# zprof
+[ -f "${HOME}/carnold_secrets.sh" ] && source "${HOME}/carnold_secrets.sh"

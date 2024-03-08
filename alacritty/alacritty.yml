@@ -905,4 +905,5 @@ shell:
   #highlight_damage: false
 
 import:
-  - ~/.config/alacritty/themes/themes/gruvbox_material_medium_dark.yaml
+   # - ~/.config/alacritty/themes/themes/horizon-dark.yaml
+  - ~/.config/alacritty/themes/themes/seashells.yaml
