@@ -155,12 +155,11 @@ add-zsh-hook chpwd nvm_use_nvmrc
 # source $HOME/Library/Python/2.7/bin/virtualenvwrapper_lazy.sh
 
 # Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
+# export PYENV_ROOT="$HOME/.pyenv" export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init --path)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+#
 # Perl
 PATH="/Users/carnold/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/carnold/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -183,6 +182,12 @@ export GOPRIVATE=gitlab.sezzle.com
 # mysql
 # export PATH="/usr/local/opt/mysql@5.6/bin:$PATH"
 
+# Ruby - prefer brew
+# if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+#   export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+#   export PATH="`gem environment gemdir`/bin:$PATH"
+# fi
+#
 export DOCKER_BUILDKIT=1
 
 # SDKMAN - "must" be at end of this file.
@@ -197,3 +202,42 @@ export PNPM_HOME="/Users/carnold/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 [ -f "${HOME}/carnold_secrets.sh" ] && source "${HOME}/carnold_secrets.sh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+# export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+export GOTOOLCHAIN=auto
+export PATH="${HOME}/.local/bin":${PATH}
+
+# TMUX AI
+export TMUXAI_OPENROUTER_API_KEY="api-key"
+export TMUXAI_OPENROUTER_MODEL="gemma3:1b"
+export TMUXAI_OPENROUTER_BASE_URL="http://localhost:11434/v1"
+
+# JAVA HOME for azul zulu via brew
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# AsyncAPI CLI Autocomplete
+# ASYNCAPI_AC_ZSH_SETUP_PATH=/Users/chris.arnold/Library/Caches/@asyncapi/cli/autocomplete/zsh_setup && test -f $ASYNCAPI_AC_ZSH_SETUP_PATH && source $ASYNCAPI_AC_ZSH_SETUP_PATH; # asyncapi autocomplete setup
+
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+
+# BEGIN dotclaude-sync (managed by install.sh - do not edit)
+alias dotclaude-sync='cd "/Users/chris.arnold/repos/dotclaude-sync" && git checkout production && git pull --ff-only && ./install.sh && cd -'
+alias gitdiffprod='cp .git/index .git/temp_index && GIT_INDEX_FILE=.git/temp_index git add -N . ":(exclude)*.md" && GIT_INDEX_FILE=.git/temp_index git diff $(git merge-base production HEAD); rm .git/temp_index'
+# END dotclaude-sync
+
+# bun completions
+[ -s "/Users/chris.arnold/.bun/_bun" ] && source "/Users/chris.arnold/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

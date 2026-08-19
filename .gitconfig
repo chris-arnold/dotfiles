@@ -8,7 +8,8 @@
 	default = current
 	followTags = true
 [core]
-	excludesfile = /Users/carnold/.gitignore_global
+	excludesfile = /Users/chris.arnold/.gitignore_global
+	hooksPath = /usr/local/bin/git-hooks
 [init]
 	defaultBranch = production
 [fetch]
@@ -17,3 +18,8 @@
 	colorMoved = zebra
 [pull]
 	rebase = false
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

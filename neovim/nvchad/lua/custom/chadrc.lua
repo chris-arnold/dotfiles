@@ -16,8 +16,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 -- vim.opt.shiftwidth = 4
 
 M.ui = {
-  theme = "bearded-arc",
-  theme_toggle = { "gruvbox", "one_light" },
+  theme = "kanagawa",
+  theme_toggle = { "kanagawa", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,

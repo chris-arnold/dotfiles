@@ -4,7 +4,7 @@
 
 alias l="ls -alhpT"
 alias dlf="docker logs -f"
-alias dco="docker-compose"
+alias dco="docker compose"
 alias k="kubectl"
 alias kgal="kubectl get all --all-namespaces --show-labels"
 
@@ -12,8 +12,11 @@ alias kgal="kubectl get all --all-namespaces --show-labels"
 alias ktest="kubectl --context test-cluster"
 alias kstaging="kubectl --context us-cluster -nstaging"
 alias kprod="kubectl --context us-cluster -nproduction"
+alias knewprod="kubectl --context us-production -nproduction"
+alias ksand="kubectl --context us-cluster -nsandbox"
+alias kdata="kubectl --context data-cluster -ndagster"
 alias kdev="kubectl --context k3d-sezzle-dev"
-alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=us-west-2 aws --endpoint-url='http://localstack.dev.localhost'"
+alias awslocal="AWS_ACCESS_KEY_ID=test AWS_SECRET_ACCESS_KEY=test AWS_DEFAULT_REGION=us-west-2 aws --endpoint-url='http://localhost:4566'"
 
 # Git related (mostly derived from ZSH git plugin)
 alias gcam='git commit -a -m'
@@ -36,11 +39,9 @@ alias gst='git status'
 alias gpomt='git push origin master --tags'
 
 alias k9='k9s'
+alias ttig="TERM=xterm-256color tig"
 
 # ===== Functions =====
-function cdgp {
-    cd "${GOPATH}/src"
-}
 
 # Source: https://github.com/robbyrussell/oh-my-zsh/blob/master/lib/git.zsh#L61
 # Outputs the name of the current branch
@@ -265,6 +266,19 @@ function aws_mfa {
   export AWS_SESSION_TOKEN=$(echo "$result" | jq -r '.Credentials.SessionToken')
 }
 
+function hack_aws() {
+    local role_arn="arn:aws:iam::460575956973:role/OrganizationAccountAccessRole"
+    temporary_credentials="$(aws \
+            sts assume-role \
+            --role-arn="${role_arn}" \
+            --role-session-name="hackathon-access"
+        )"
+    unset AWS_PROFILE
+    export "AWS_ACCESS_KEY_ID=$(echo "${temporary_credentials}" | jq -re '.Credentials.AccessKeyId')"
+    export "AWS_SECRET_ACCESS_KEY=$(echo "${temporary_credentials}" | jq -re '.Credentials.SecretAccessKey')"
+    export "AWS_SESSION_TOKEN=$(echo "${temporary_credentials}" | jq -re '.Credentials.SessionToken')"
+}
+
 function test_aws() {
     local role_arn="arn:aws:iam::603884908598:role/OrganizationAccountAccessRole"
     temporary_credentials="$(aws \
@@ -283,14 +297,26 @@ function login_data_lake {
        aws_mfa;
     fi;
 
-    local result=$(aws redshift get-cluster-credentials --cluster-identifier data-lake \
+    local result=$(aws redshift get-cluster-credentials --cluster-identifier data-lake-write \
                       --db-user $AWS_USERNAME --db-name dev --duration-seconds 3600 --auto-create --db-groups data)
 
 	export PGUSER=$(echo "$result" | jq -r '.DbUser')
 	export PGPASSWORD=$(echo "$result" | jq -r '.DbPassword')
 
-    echo 'You can connect via if on the VPN: `pgcli -h data-lake.sezzle.internal -p 5439 -U "$PGUSER" dev`'
+    echo 'You can connect via if on the VPN: `pgcli -h data-lake-write.sezzle.internal -p 5439 -U "$PGUSER" dev`'
     echo 'You can view your temporary password via `echo $PGPASSWORD`'
+}
+
+function login_staging_warehouse() {
+    if [ -z "$AWS_SESSION_TOKEN" ]; then
+       aws_mfa;
+    fi;
+    local result=$(aws redshift get-cluster-credentials --cluster-identifier data-lake-write \
+                      --db-user $AWS_USERNAME --db-name staging --duration-seconds 3600 --auto-create --db-groups data)
+    export MASK_USER=$(echo "$result" | jq -r '.DbUser')
+    export MASK_PASS=$(echo "$result" | jq -r '.DbPassword')
+    echo 'You can connect via if on the VPN: `pgcli -h data-lake.sezzle.internal -p 5439 -U "$MASK_USER" staging`'
+    echo 'You can view your temporary password via `echo $MASK_PASS`'
 }
 
 function kops_test_exports {
@@ -299,3 +325,4 @@ function kops_test_exports {
    export KOPS_ROLE_ARN=arn:aws:iam::603884908598:role/OrganizationAccountAccessRole
    export KOPS_STATE_STORE=s3://infra-sandbox-szzldev-kops-state-store
 }
+

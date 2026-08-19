@@ -4,6 +4,7 @@
 *.swp
 *.idea
 .idea/
+.env
 venv/
 node_modules/
 *.egg-info
@@ -12,9 +13,9 @@ node_modules/
 .pytest_cache
 */gce.ini
 .bundle/
-.vscode
 yarn-error.log
 .python-version
 curltest.sh
 cpaignore
 .netrc
+.claude
