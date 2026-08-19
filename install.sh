@@ -59,7 +59,7 @@ brew install \
     tig \
     wget \
     yarn \
-    zsh
+    tmux
 
 
 # Start from scratch.
@@ -71,7 +71,7 @@ rm -rf \
     $VSCODE_SETTINGS
 
 ln -s $ZSH_DOTFILES/zshrc $HOME/.zshrc
-
+ln -s $ZSH_DOTFILES/tmux/tmux.conf $HOME/.tmux.conf
 
 # Install FZF with key bindings and completion.
 log "Installing FZF and bindings."
